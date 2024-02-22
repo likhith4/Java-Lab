@@ -1,24 +1,74 @@
-public class MatrixAdd {
-
+public class MatrixAddition {
     public static void main(String[] args) {
-        // two matrices here 
-        int a[][]={{1,1,1},{2,2,2},{3,3,3}};
-        int b[][]={{1,1,1},{2,2,2},{3,3,3}};
-        
-        int c[][]=new int[3][3];
+        // Check if the number of command line arguments is correct
+        if (args.length != 1) {
+            System.out.println("Usage: java MatrixAddition <order_N>");
+            return;
+        }
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                c[i][j]=0;
-                for (int k = 0; k <3; k++) {
-                    c[i][j]+=a[i][k]*b[k][j];
-                    
-                }
-                System.out.println(c[i][j]+" ");
+        // Parse the command line argument to get the order N
+        int N = Integer.parseInt(args[0]);
 
+        // Check if N is a positive integer
+        if (N <= 0) {
+            System.out.println("Please provide a valid positive integer for the order N.");
+            return;
+        }
+
+        // Create two matrices of order N
+        int[][] matrix1 = new int[N][N];
+        int[][] matrix2 = new int[N][N];
+
+        // Fill the matrices with some sample values (you can modify this as needed)
+        fillMatrix(matrix1, 1);
+        fillMatrix(matrix2, 2);
+
+        // Print the matrices
+        System.out.println("Matrix 1:");
+        printMatrix(matrix1);
+
+        System.out.println("\nMatrix 2:");
+        printMatrix(matrix2);
+
+        // Add the matrices
+        int[][] resultMatrix = addMatrices(matrix1, matrix2);
+
+        // Print the result matrix
+        System.out.println("\nResultant Matrix (Matrix1 + Matrix2):");
+        printMatrix(resultMatrix);
+    }
+
+    // Helper method to fill a matrix with sequential values
+    private static void fillMatrix(int[][] matrix, int startValue) {
+        int value = startValue;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] = value++;
+            }
+        }
+    }
+
+    // Helper method to add two matrices
+    private static int[][] addMatrices(int[][] matrix1, int[][] matrix2) {
+        int N = matrix1.length;
+        int[][] resultMatrix = new int[N][N];
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                resultMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+
+        return resultMatrix;
+    }
+
+    // Helper method to print a matrix
+    private static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int value : row) {
+                System.out.print(value + "\t");
             }
             System.out.println();
-
         }
     }
 }
